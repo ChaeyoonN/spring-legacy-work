@@ -81,8 +81,8 @@ public class RequestController {
 		System.out.println("ID: " + request.getParameter("userId"));
 		System.out.println("PW: " + request.getParameter("userPw"));
 		System.out.println("HOBBY: " + Arrays.toString(request.getParameterValues("hobby")));
-	}
-	*/
+	}*/
+	
 	
 	/*
 	 2. @RequestParam 아노테이션을 이용한 요청 파라미터 처리.
@@ -98,13 +98,13 @@ public class RequestController {
 		System.out.println("ID: " + userId);
 		System.out.println("PW: " + userPw);
 		System.out.println("hobby" + hobby);
-	}
-	*/
+	}*/
+	
 	
 	/*
 	 3. 커맨드 객체를 활용한 파라미터 처리
 	 - 파라미터 데이터와 연동되는 VO 클래스가 필요합니다.
-	 - VO 클래스의 필드는 파라키터 변수명과 동일하게 작성합니다. (setter 메서드를 호출)
+	 - VO 클래스의 필드는 파라미터 변수명과 동일하게 작성합니다. (setter 메서드를 호출)
 	 
 	 # 커맨드 객체: 사용자의 입력을 담기 위해 설계되고, 특정 검증 로직이나 비즈니스 로직을 
 	 수행할 수 있음. (VO 보다는 역할이 좀 더 많고, 특정 목적을 가진 객체)

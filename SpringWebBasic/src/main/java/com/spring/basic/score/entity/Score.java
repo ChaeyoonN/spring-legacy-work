@@ -23,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Score {
-	
+	//필드
 	private String stuName; //학생 이름
 	private int kor, eng, math; //국, 영, 수 점수
 	
@@ -32,11 +32,13 @@ public class Score {
 	private double average; //평균
 	private Grade grade; //학점
 	
+	//생성자
 	public Score(ScoreRequestDTO dto) {
 		this.stuName = dto.getName();
 		changeScore(dto);
 	}
 	
+	//메서드
 	 public void changeScore(ScoreRequestDTO dto) {
 	        this.kor = dto.getKor();
 	        this.eng = dto.getEng();
@@ -60,8 +62,8 @@ public class Score {
     }
 
     private void calcTotalAndAvg() {
-        this.total = kor + eng + math;
-        this.average = total / 3.0;
+        this.total = this.kor + this.eng + this.math;
+        this.average = this.total / 3.0;
     }
 	
 }
