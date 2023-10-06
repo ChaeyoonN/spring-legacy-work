@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +67,16 @@
 </head>
 <body>
 
-    <div class="wrap">
+	<c:choose>
+	
+	<c:when test="${s == null}">
+	<h1>존재하지 않는 학생이거나, 잘못된 접근입니다.</h1>
+	<a href="/basic/score/list" class="list-btn">목록</a>
+	</c:when>
+    
+    <c:otherwise>
+    
+    	<div class="wrap">
         <section class="score-main">
             <h1>${s.stuName}님 성적 정보</h1>
             <ul>
@@ -81,7 +92,11 @@
                 <a href="/basic/score/modify?stuNum=${s.stuNum}" class="mod-btn">수정</a>
             </div>
         </section>
-    </div>
+    	</div>
+    
+    </c:otherwise>
+    
+    </c:choose>
 
 </body>
 </html>

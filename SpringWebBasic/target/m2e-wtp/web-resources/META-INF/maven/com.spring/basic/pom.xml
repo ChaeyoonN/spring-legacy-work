@@ -91,6 +91,44 @@
 		    <scope>provided</scope>
 		</dependency>
 		
+		<!-- ojdbc6 오라클 데이터베이스 드라이버 -->
+		<dependency>
+   			<groupId>com.oracle.database.jdbc</groupId>
+    		<artifactId>ojdbc6</artifactId>
+    	<version>11.2.0.4</version>
+		</dependency>
+		
+		<!-- spring jdbc -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>5.3.18</version>
+		</dependency>
+		
+		<!-- HikariCP: 커넥션 풀 -->
+		<dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		    <version>3.4.5</version>
+		</dependency>
+		
+		<!-- mybatis -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.5.6</version>
+		</dependency>
+		
+		<!-- mybatis와 spring을 연동해 주는 라이브러리 -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>2.0.6</version>
+		</dependency>
+		
+		
+		
+		
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -118,7 +156,8 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	
+		
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

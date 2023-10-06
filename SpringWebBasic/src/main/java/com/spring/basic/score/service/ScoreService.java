@@ -3,12 +3,16 @@ package com.spring.basic.score.service;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.spring.basic.score.dto.ScoreListResponseDTO;
 import com.spring.basic.score.dto.ScoreRequestDTO;
 import com.spring.basic.score.entity.Score;
+import com.spring.basic.score.repository.IScoreMapper;
 import com.spring.basic.score.repository.IScoreRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +23,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ScoreService {
 
-	private final IScoreRepository scoreRepository;
+//	private final IScoreRepository scoreRepository;
+	private final IScoreMapper scoreRepository;
+	
+//	@Autowired
+//	public ScoreService(@Qualifier("spring") IScoreRepository scoreRepository) {
+//		this.scoreRepository = scoreRepository;
+//	}
+	
 	
 	//등록 중간처리
 	//컨트롤러는 나에게 DTO를 줬어.
@@ -69,7 +80,7 @@ public class ScoreService {
 		
 		//방법1
 //		dto.setName(score.getStuName()); // score의 이름으로 dto의 이름 설정
-//		Score modScore = new Score(dto); //이름 생긴 dto로 새로운 객체 생성
+//		Score modScore = new Score(dto); //이름c 생긴 dto로 새로운 객체 생성
 //		modScore.setStuNum(stuNum); //새 객체의 학번 설정
 		
 		//방법2: Score의 메서드 사용
