@@ -3,10 +3,13 @@ package com.spring.myweb.freeboard.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.border.TitledBorder;
+
 import org.springframework.stereotype.Service;
 
 import com.spring.myweb.freeboard.dto.FreeContentDTO;
 import com.spring.myweb.freeboard.dto.FreeListResponseDTO;
+import com.spring.myweb.freeboard.dto.FreeModifyRequestDTO;
 import com.spring.myweb.freeboard.dto.FreeRegistRequestDTO;
 import com.spring.myweb.freeboard.entity.FreeBoard;
 import com.spring.myweb.freeboard.mapper.IFreeBoardMapper;
@@ -53,8 +56,16 @@ public class FreeBoardService implements IFreeBoardService {
 	}
 
 	@Override
-	public void update(FreeBoard freeBoard) {
-		mapper.update(freeBoard);
+	public void update(FreeModifyRequestDTO dto) {
+		
+//		mapper.update(mapper.getContent(dto.getBno()));
+		mapper.update(
+						FreeBoard.builder()
+						.bno(dto.getBno())
+						.title(dto.getTitle())
+						.content(dto.getContent())
+						.build()
+						);
 
 	}
 

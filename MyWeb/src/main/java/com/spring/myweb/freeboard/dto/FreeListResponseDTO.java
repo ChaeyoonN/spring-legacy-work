@@ -27,9 +27,9 @@ public class FreeListResponseDTO {
 		this.date = makePrettierDateString(board.getRegDate());
 	}
 	
-	//메서드
-	private String makePrettierDateString(LocalDateTime regDate) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM--dd hh:mm");
+	//메서드 (같은 패키지에서 열 수 있도록 default, 객체 없이 호출할 수 있도록 static)
+	static String makePrettierDateString(LocalDateTime regDate) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
 		return dtf.format(regDate);
 	}
 

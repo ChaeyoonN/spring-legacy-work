@@ -20,8 +20,7 @@ public class FreeContentDTO {
 	private String title;
 	private String writer;
 	private String content;
-	private String regDate;
-	private String updateDate;
+	private String date;
 	
 	//생성자
 	public FreeContentDTO(FreeBoard board) {
@@ -30,18 +29,20 @@ public class FreeContentDTO {
 		this.title = board.getTitle();
 		this.writer = board.getWriter();
 		this.content = board.getContent();
-		this.regDate = makePrettierDateString(board.getRegDate());
-		this.updateDate = board.getUpdateDate()==null? 
-				makePrettierDateString(board.getRegDate()) : 
-				makePrettierDateString(board.getUpdateDate())+"(수정됨)";
+		
+		this.date = board.getUpdateDate()==null? 
+				FreeListResponseDTO.makePrettierDateString(board.getRegDate()) : 
+				FreeListResponseDTO.makePrettierDateString(board.getUpdateDate())+"(수정됨)";
+//		if(board.getUpdateDate() == null) {
+//			this.date = FreeListResponseDTO.makePrettierDateString(board.getRegDate());
+//		}else {
+//			this.date = FreeListResponseDTO.makePrettierDateString(board.getUpdateDate())
+//					+"(수정됨)";
+//		}
 		
 	}
 
-	//메서드
-	private String makePrettierDateString(LocalDateTime date) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
-		return dtf.format(date);
-	}
+	
 	
 	
 	

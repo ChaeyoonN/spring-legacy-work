@@ -17,5 +17,4 @@ public class FreeRegistRequestDTO {
 	private String content;
 	private String writer;
 	
-	
 }

@@ -88,32 +88,56 @@ public class FreeBoardControllerTest {
 		//freeboard/content -> get
 		//bno, title, writer, content, updateDate == null ? regDate, updateDate(수정됨)
 		ModelAndView mv = mockMvc.perform(MockMvcRequestBuilders.get("/freeboard/content")
-												.param("bno", "3")	
-												).andReturn()
+												.param("bno", "1")//파라미터와 함께 요청보내기	
+												).andReturn()//요청 결과 받기
 												.getModelAndView();//요청 결과에서 ModelAndView 객체를 얻음.
 		
+		//오브젝트 타입이므로 getter메서드 쓰기 위해 형 변환
 		FreeContentDTO dto = (FreeContentDTO)mv.getModelMap().get("board");
+		
 		//컨트롤러에서 Model 객체에 담은 데이터를 확인
 		System.out.println("Model 내에 저장한 데이터: " + mv.getModelMap().get("board"));
 		//컨트롤러에서 응답 페이지로 지정한 문자열을 확인.
 		System.out.println("응답 처리를 위해 사용할 페이지: " + mv.getViewName());
-
-		assertEquals(dto.getBno(), 3);
+		
+		assertEquals("freeboard/freeDetail", mv.getViewName());
+		assertEquals(dto.getBno(), 1);
 		
 	}
+	
 	
 	@Test
-	@DisplayName("글 수정 요청 처리 테스트: 42번 수정 후 조회하면~")
-	void testUpdate() throws Exception{
-		ModelAndView mv = mockMvc.perform(MockMvcRequestBuilders.get("/freeboard/update")
-											.param("bno", "42")	
-											).andReturn()
-											.getModelAndView();//요청 결과에서 ModelAndView 객체를 얻음.
-		System.out.println();
-
+    @DisplayName("3번글의 제목과 내용을 수정하는 요청을 post방식으로 전송하면 수정이 진행되고, "
+            + "수정된 글의 상세보기 페이지로 응답해야 한다.")
+    // /freeboard/modify -> post
+    void testModify() throws Exception {      
+		String bno = "3";
+		String viewName = mockMvc.perform(MockMvcRequestBuilders.post("/freeboard/modify")
+        									.param("bno", bno)
+        									.param("title", "하이")
+        									.param("content", "하이하이하이!")
+        									).andReturn()
+        									.getModelAndView()
+        									.getViewName();
+      
+      assertEquals(viewName, "redirect:/freeboard/content?bno=" + bno);
+        
+    }
+    
+    @Test
+    @DisplayName("3번 글을 삭제하면 목록 재요청이 발생할 것이다.")
+    // /freeboard/delete -> post
+    void testDelete() throws Exception {
 		
-	}
-	
+		assertEquals("redirect:/freeboard/freeList",
+				mockMvc.perform(MockMvcRequestBuilders.post("/freeboard/delete")
+													.param("bno", "3")
+													).andReturn()
+													.getModelAndView()
+													.getViewName()
+													);
+    	
+    }
 }
 
 
