@@ -33,9 +33,9 @@
                                 <label>내용</label>
                                 <textarea class="form-control" rows="10" name='content' readonly>${board.content}</textarea>
                             </div>
-
+											
                             <button type="submit" class="btn btn-primary">변경</button>
-                            <button type="button" class="btn btn-dark">목록</button>
+                            <button type="button" class="btn btn-dark" onclick="location.href='/myweb/freeboard/freeList?pageNo=${p.pageNo}&amount=${p.amount}&keyword=${p.keyword}&condition=${p.condition}'">목록</button>
                     </form>
                 </div>
             </div>
