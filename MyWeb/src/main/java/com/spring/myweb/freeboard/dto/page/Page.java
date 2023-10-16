@@ -42,6 +42,7 @@ public class Page {
 		this.amount = amount;
 	}
 	
+	
 	public int getPageStart() {
 		/*
 		 pageNo: 1 -> return 0
