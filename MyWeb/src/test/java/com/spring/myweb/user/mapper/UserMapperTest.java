@@ -25,9 +25,9 @@ public class UserMapperTest {
     @DisplayName("회원 가입을 진행했을 때 회원가입이 성공해야 한다.")
     void registTest() {
         mapper.join(User.builder()
-        				.userId("cewf")
+        				.userId("ddd")
         				.userPw("ee1111!")
-        				.userName("춘식이")
+        				.userName("사람")
 //        				.userPhone1("010")
 //        				.userPhone2("1234-5678")
         				.userEmail1("abnn")

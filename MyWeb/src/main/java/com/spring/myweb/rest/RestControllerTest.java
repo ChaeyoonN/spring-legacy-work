@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-//@Controller
-@RestController 
+@Controller
+//@RestController 
 @RequestMapping("rest")
 public class RestControllerTest {
 	
@@ -40,7 +40,7 @@ public class RestControllerTest {
 	 */
 	
 	@PostMapping("/object")
-//	@ResponseBody
+	@ResponseBody
 	public Person object(@RequestBody Person p) {
 		System.out.println("비동기 방식의 요청 들어옴!");
 		System.out.println(p.toString());
@@ -54,19 +54,19 @@ public class RestControllerTest {
 	////////////////////////////////////////////
 	
 	@GetMapping("/hello")
-//	@ResponseBody
+	@ResponseBody
 	public String hello() {
 		return "hello world!";
 	}
 	
 	@GetMapping("/hobby")
-//	@ResponseBody
+	@ResponseBody
 	public List<String> hobby(){
 		return Arrays.asList("축구", "영화감상", "수영");
 	}
 	
 	@GetMapping("/study")
-//	@ResponseBody
+	@ResponseBody
 	public Map<String, Object> study(){
 		Map<String, Object> subject = new HashMap<>();
 		subject.put("자바", "java");
