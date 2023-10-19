@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -89,17 +90,17 @@ public class UserController {
 	
 	//로그인 요청
 	@PostMapping("/userLogin")
-	public void login(String userId, String userPw, Model model) {
+	public void login(@RequestParam("userId") String userId, String userPw, Model model) {
 		System.out.println("나는 userController의 login이다!!!");
 		model.addAttribute("result", service.login(userId, userPw));
 		
 	}
 	
 	//마이페이지 이동 요청
-	@GetMapping("/userMypage")
+	@GetMapping("/userMypage")//헤더에서 마이페이지 눌렀거나 주소창에 쳤을 때
 	public void mypage(HttpSession session, Model model) {
 		//마이페이지는 로그인 한 사람만 이동 가능 -> 세션에 아이디가 있다!
-		String id = (String) session.getAttribute("login");
+		String id = (String) session.getAttribute("login"); //핸들러에서 세션에 저장한거. 어디서든 꺼낼 수 있음
 		model.addAttribute("userInfo", service.getInfo(id));
 		
 	}

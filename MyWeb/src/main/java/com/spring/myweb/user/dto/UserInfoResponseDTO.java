@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class UserInfoResponseDTO {
-	
+	//필드
 	private String userName;
 	private String userPhone1;
 	private String userPhone2;
@@ -31,12 +31,16 @@ public class UserInfoResponseDTO {
 	
 	private List<FreeListResponseDTO> userBoardList;
 	
+	//메서드
 	public static UserInfoResponseDTO toDTO(User user) {
-		List<FreeListResponseDTO> list = new ArrayList<>();
-		for(FreeBoard board : user.getUserBoardList()) {
-			list.add(new FreeListResponseDTO(board));
-		}
 		
+		List<FreeListResponseDTO> list = new ArrayList<>();
+		
+		for(FreeBoard board : user.getUserBoardList()) {
+			//FreeBoard로 이루어진 userBoardList에 대한 반복문
+			list.add(new FreeListResponseDTO(board));
+			//FreeListResponseDTO에 넣어서 FreeListResponseDTO로 이뤄진 리스트(list)에 넣기
+		}
 		
 		return UserInfoResponseDTO.builder()
 				.userName(user.getUserName())
@@ -47,8 +51,11 @@ public class UserInfoResponseDTO {
 				.addrBasic(user.getAddrBasic())
 				.addrDetail(user.getAddrDetail())
 				.addrZipNum(user.getAddrZipNum())
-				.userBoardList(list)
-				.build();
-	}
+				.userBoardList(list) // FreeListResponseDTO로 이뤄진 리스트(list)를 
+				.build(); 			// userBoardList로 세팅.
+				
+		
+		
+	}//toDTO메서드의 끝
 	
 }

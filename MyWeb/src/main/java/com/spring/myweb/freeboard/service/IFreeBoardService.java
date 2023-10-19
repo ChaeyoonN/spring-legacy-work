@@ -5,7 +5,7 @@ import java.util.List;
 import com.spring.myweb.freeboard.dto.page.Page;
 import com.spring.myweb.freeboard.dto.request.FreeModifyRequestDTO;
 import com.spring.myweb.freeboard.dto.request.FreeRegistRequestDTO;
-import com.spring.myweb.freeboard.dto.response.FreeContentDTO;
+import com.spring.myweb.freeboard.dto.response.FreeContentResponseDTO;
 import com.spring.myweb.freeboard.dto.response.FreeListResponseDTO;
 
 public interface IFreeBoardService {
@@ -20,7 +20,7 @@ public interface IFreeBoardService {
 	int getTotal(Page page);
 	
 	//상세보기
-	FreeContentDTO getContent(int bno);
+	FreeContentResponseDTO getContent(int bno);
 	
 	//수정
 	void update(FreeModifyRequestDTO dto);

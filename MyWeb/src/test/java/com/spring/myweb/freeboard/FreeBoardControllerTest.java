@@ -18,7 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.myweb.freeboard.controller.FreeBoardController;
-import com.spring.myweb.freeboard.dto.response.FreeContentDTO;
+import com.spring.myweb.freeboard.dto.response.FreeContentResponseDTO;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/db-config.xml",
@@ -93,7 +93,7 @@ public class FreeBoardControllerTest {
 												.getModelAndView();//요청 결과에서 ModelAndView 객체를 얻음.
 		
 		//오브젝트 타입이므로 getter메서드 쓰기 위해 형 변환
-		FreeContentDTO dto = (FreeContentDTO)mv.getModelMap().get("board");
+		FreeContentResponseDTO dto = (FreeContentResponseDTO)mv.getModelMap().get("board");
 		
 		//컨트롤러에서 Model 객체에 담은 데이터를 확인
 		System.out.println("Model 내에 저장한 데이터: " + mv.getModelMap().get("board"));

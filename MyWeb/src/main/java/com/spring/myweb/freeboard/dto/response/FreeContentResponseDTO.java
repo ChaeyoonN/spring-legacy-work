@@ -13,7 +13,7 @@ import lombok.ToString;
 
 @Getter @ToString @EqualsAndHashCode
 
-public class FreeContentDTO {
+public class FreeContentResponseDTO {
 	
 	//필드 
 	private int bno;
@@ -23,7 +23,7 @@ public class FreeContentDTO {
 	private String date;
 	
 	//생성자
-	public FreeContentDTO(FreeBoard board) {
+	public FreeContentResponseDTO(FreeBoard board) {
 		super();
 		this.bno = board.getBno();
 		this.title = board.getTitle();

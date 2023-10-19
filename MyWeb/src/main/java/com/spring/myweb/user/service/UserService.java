@@ -63,8 +63,8 @@ public class UserService {
 	}
 
 	public UserInfoResponseDTO getInfo(String id) {
-		User user = mapper.getInfo(id);
-		return UserInfoResponseDTO.toDTO(user);
+		User user = mapper.getInfo(id);//id에 맞는 정보, 게시글 담은 객체 리턴
+		return UserInfoResponseDTO.toDTO(user);//정보담은 객체를 dto로 포장해 리턴
 		
 		
 	}

@@ -12,7 +12,7 @@ import com.spring.myweb.freeboard.dto.page.Page;
 import com.spring.myweb.freeboard.dto.page.PageCreator;
 import com.spring.myweb.freeboard.dto.request.FreeModifyRequestDTO;
 import com.spring.myweb.freeboard.dto.request.FreeRegistRequestDTO;
-import com.spring.myweb.freeboard.dto.response.FreeContentDTO;
+import com.spring.myweb.freeboard.dto.response.FreeContentResponseDTO;
 import com.spring.myweb.freeboard.service.IFreeBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -66,7 +66,7 @@ public class FreeBoardController {
 			Model model,
 			@ModelAttribute("p") Page page) {
 		System.out.println("/freeboard/content: GET!");
-		FreeContentDTO dto = service.getContent(bno);
+		FreeContentResponseDTO dto = service.getContent(bno);
 		model.addAttribute("board", dto);
 		
 		return "freeboard/freeDetail"; // 폴더명/파일명
