@@ -1,18 +1,22 @@
-package com.spring.myweb.reply;
+package com.spring.myweb.reply.controller;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.myweb.reply.dto.ReplyListResponseDTO;
-import com.spring.myweb.reply.dto.ReplyRegistDTO;
+import com.spring.myweb.reply.dto.ReplyRequestDTO;
+import com.spring.myweb.reply.dto.ReplyUpdateRequestDTO;
 import com.spring.myweb.reply.service.IReplyService;
 
 import lombok.Getter;
@@ -29,7 +33,7 @@ public class ReplyController {
 	//댓글 등록 
 	@PostMapping()
 //	@ResponseBody
-	public String replyRegist(@RequestBody ReplyRegistDTO dto) {//@RequestBody는 json->dto 알아서 변환해줌
+	public String replyRegist(@RequestBody ReplyRequestDTO dto) {//@RequestBody는 json->dto 알아서 변환해줌
 		System.out.println("댓글 등록 요청 들어옴!"+dto);
 		service.replyRegist(dto);
 		
@@ -62,6 +66,20 @@ public class ReplyController {
 		return map;
 	}
 	
+	//댓글 수정 요청
+	@PutMapping("/{rno}")
+	public String update(@PathVariable int rno, @RequestBody ReplyUpdateRequestDTO dto) {
+		dto.setReplyNo(rno);
+		return service.update(dto);
+	}
+	
+	//댓글 삭제 요청
+	@DeleteMapping("/{rno}")
+	public String delete(@PathVariable int rno, @RequestBody String replyPw) {//body:replyPw
+//		System.out.println("댓글 삭제 요청 들어옴: " + replyPw);
+		
+		return service.delete(rno, replyPw);
+	}
 	
 	
 }

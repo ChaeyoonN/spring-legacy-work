@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.spring.myweb.freeboard.dto.page.Page;
 import com.spring.myweb.reply.dto.ReplyListResponseDTO;
-import com.spring.myweb.reply.dto.ReplyRegistDTO;
+import com.spring.myweb.reply.dto.ReplyRequestDTO;
+import com.spring.myweb.reply.dto.ReplyUpdateRequestDTO;
 import com.spring.myweb.reply.entity.Reply;
 import com.spring.myweb.reply.mapper.IReplyMapper;
 
@@ -26,7 +27,7 @@ public class ReplyService implements IReplyService {
 	
 	
 	@Override
-	public void replyRegist(ReplyRegistDTO dto) {
+	public void replyRegist(ReplyRequestDTO dto) {
 		dto.setReplyPw(encoder.encode(dto.getReplyPw()));//비밀번호 암호화
 		mapper.replyRegist(dto.toEntity(dto));
 
@@ -68,15 +69,28 @@ public class ReplyService implements IReplyService {
 	}
 
 	@Override
-	public void update(Reply reply) {
+	public String update(ReplyUpdateRequestDTO dto) {
+		if(encoder.matches(dto.getReplyPw(), mapper.pwCheck(dto.getReplyNo()))) {
+			mapper.update(dto.toEntity(dto));
+			return "updateSuccess";
+		}else {
+			return "pwFail";
+		}
 		
 
 	}
 
 	@Override
-	public void delete(int rno) {
-		
+	public String delete(int rno, String replyPw) {
+		if(encoder.matches(replyPw, mapper.pwCheck(rno))) {
+			mapper.delete(rno);
+			return "deleteSuccess";
+		}else {
+			return "pwFail";
+		}
 
 	}
 
+	
+	
 }

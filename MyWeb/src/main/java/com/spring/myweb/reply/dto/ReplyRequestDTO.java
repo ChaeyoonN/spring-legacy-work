@@ -13,7 +13,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReplyRegistDTO {
+public class ReplyRequestDTO {
 		
 	private int bno;
 	private String replyText;
@@ -21,7 +21,7 @@ public class ReplyRegistDTO {
 	private String replyPw; //js 요청과 함께 전달한 body객체 데이터명과 같게
 	
 	
-	public Reply toEntity(ReplyRegistDTO dto) {
+	public Reply toEntity(ReplyRequestDTO dto) {
 		return Reply.builder()
 		.bno(dto.getBno()) //컨트롤러에서 이미 넣어줬으므로 dto.getBno() 대신 this.bno라 해도 됌
 		.replyText(dto.getReplyText())
