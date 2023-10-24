@@ -56,7 +56,7 @@
                                     </c:if>
                                     <c:if test="${sessionScope.login != null}">
                                         <li><a href="${pageContext.request.contextPath}/user/userMypage"><span class="glyphicon glyphicon-user"></span>MyPage</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                                        <li><a id="logout" href="##"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                                     </c:if>
                                     </ul>
                                 </li>
@@ -79,3 +79,23 @@
             </div>
         </div>
     </header>
+    <script>
+        let reqLogout = false;
+        document.getElementById('logout').onclick = function (e) {
+            e.preventDefault();
+            reqLogout = true;
+            fetch('${pageContext.request.contextPath}/user/logout/'+reqLogout, {
+                method: 'post'
+            })
+            .then(res => res.text())
+            .then(data => {
+                console.log(data);
+                if(data === 'logout'){
+                    location.href = '${pageContext.request.contextPath}';
+                }else{
+                    alert('엥?');
+                }
+            })
+            
+        }
+    </script>

@@ -105,6 +105,17 @@ public class UserController {
 		
 	}
 	
+	//로그아웃 요청
+	@PostMapping("/logout/{reqLogout}")
+	@ResponseBody
+	public String logout(@PathVariable String reqLogout, HttpSession session) {
+		System.out.println("로그아웃 요청: "+ reqLogout);
+		if(!session.getAttribute("login").equals(null)) {
+			session.setAttribute("login", null);
+			return "logout";
+		}
+		return "no";
+	}
 	
 	
 }
