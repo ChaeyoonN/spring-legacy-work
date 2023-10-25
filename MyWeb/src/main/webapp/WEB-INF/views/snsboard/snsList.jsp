@@ -341,7 +341,7 @@
 				document.getElementById('content').value = ''; //글 영역 비우기
 				document.querySelector('.fileDiv').style.display = 'none'; //미리보기 감추기
 
-				getList(1, true); //글 목록 함수 호출.
+				getLikeList(1, true); //글 목록 함수 호출.
 
 			});
 
@@ -350,14 +350,50 @@
 		//글 목록 함수 선언.
 		let str = '';
 		let page = 1;
-		let isFinish = false;
-		let reqStatus = false;
+		let isFinish = false; //리스트 로딩 여부 표시
+		let reqStatus = false; // 요청 필요한지 여부 표시(필요: false)
 
 		const $contentDiv = document.getElementById('contentDiv');
+		getLikeList(1, true);
+		
+		//지금 게시판에 들어온 회원의 좋아요 게시물 목록을 받아오는 함수.
+		function getLikeList(page, reset) {
+			const userId = '${login}';
+			console.log('userId: ', userId);
+			/*
+			특정 데이터를 브라우저가 제공하는 공간에 저장할 수 있습니다.
+			localStorage, sessionStorage -> 수명에 차이점이 있습니다.
 
-		getList(1, true);
+			localStorage: 브라우저가 종료되더라도 데이터는 유지됩니다.
+						  브라우저 탭이 여러 개 존재하더라도 데이터가 공유됩니다.
+			sessionStorage: 브라우저가 종료되면 데이터가 소멸됩니다.
+							브라우저 탭 별로 데이터가 저장되기 때문에 공유되지 않습니다.
+			*/
+			
+			if(userId !== ''){
+				if(sessionStorage.getItem('likeList')){//세션스토리지에 list이미 있으면 fetch 굳이 안해도 되도록
+					console.log('sessionStorage에 list 존재함!');
+					getList(page, reset, sessionStorage.getItem('likeList'));
+					return;
+				}
+				fetch('${pageContext.request.contextPath}/snsboard/likeList/'+userId)
+				.then(res => res.json())
+				.then(list => {
+					console.log('좋아요 글 목록 받아옴!: ', list);
+					sessionStorage.setItem('likeList', list);
+					getList(page, reset, list); //비동기 통신 받은 후 실행되도록(then안에) 
+				});
 
-		function getList(page, reset) {
+			}else{
+				getList(page, reset, null);
+			}
+
+		}//end getLikeList()
+
+
+
+
+		function getList(page, reset, likeList) {
 			str = '';
 			isFinish = false;
 			
@@ -371,8 +407,8 @@
 				console.log(list.length);
 				
 				if(list.length <= 0){
-					isFinish = true;
-					reqStatus = true;
+					isFinish = true; 
+					reqStatus = true; //요청 필요없다.
 					return;
 				}	
 
@@ -410,13 +446,27 @@
                         </div>
                         <div class="like-inner">
                             <!--좋아요-->
-                            <img src="${pageContext.request.contextPath}/img/icon.jpg"> <span>522</span>
+                            <img src="${pageContext.request.contextPath}/img/icon.jpg"> <span>`+board.likeCnt+`</span>
                         </div>
-                        <div class="link-inner">
-                            <a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like1.png" width="20px" height="20px" /> 좋아요</a>
-                            <a data-bno="` + board.bno + `" id="comment" href="` + board.bno + `"><i class="glyphicon glyphicon-comment"></i>댓글달기</a>
-                            <a id="delBtn" href="` + board.bno + `"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>
-                        </div>`;
+                        <div class="link-inner">`;
+							if(likeList){ //좋아요 리스트 존재하는 경우
+								
+								if(likeList.includes(board.bno)){ //자바의 contains()와 같은 리스트의 메서드
+									str += `<a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like2.png" width="20px" height="20px" /> 좋아요</a>`;
+								}else{ //로그인했는데 좋아요 누른것 없는 경우
+									str += `<a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like1.png" width="20px" height="20px" /> 좋아요</a>`;
+								}
+
+							}else{
+								//좋아요 리스트 없는 경우: 로그인하지 않은 경우
+								str += `<a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like1.png" width="20px" height="20px" /> 좋아요</a>`;
+							}
+							str += `<a data-bno="` + board.bno + `" id="comment" href="` + board.bno + `"><i class="glyphicon glyphicon-comment"></i>댓글달기</a>
+                            	<a id="delBtn" href="` + board.bno + `"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>
+                        		</div>`;
+
+
+                            
 				}
 
 				if(!reset){
@@ -534,10 +584,10 @@
 			const height = document.body.offsetHeight; //바디의 높이
 			const windowHeight = window.innerHeight; //브라우저 창의 안쪽 높이
 
-			if(isFinish){
-				if(scrollPosition + windowHeight >= height * 0.9){
+			if(isFinish){ //리스트 로딩끝났을 때
+				if(scrollPosition + windowHeight >= height * 0.9){ //스트롤 위치에 따라서
 					console.log('next page call!');
-					getList(++page, false);
+					getLikeList(++page, false); // 반영 안되므로 이렇게 고친다.
 				}
 			}
 

@@ -56,7 +56,7 @@
                                     </c:if>
                                     <c:if test="${sessionScope.login != null}">
                                         <li><a href="${pageContext.request.contextPath}/user/userMypage"><span class="glyphicon glyphicon-user"></span>MyPage</a></li>
-                                        <li><a id="logout" href="##"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                                        <li><a id="logout" href="#"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                                     </c:if>
                                     </ul>
                                 </li>
@@ -80,22 +80,22 @@
         </div>
     </header>
     <script>
-        let reqLogout = false;
-        document.getElementById('logout').onclick = function (e) {
-            e.preventDefault();
-            reqLogout = true;
-            fetch('${pageContext.request.contextPath}/user/logout/'+reqLogout, {
-                method: 'post'
-            })
-            .then(res => res.text())
-            .then(data => {
-                console.log(data);
-                if(data === 'logout'){
-                    location.href = '${pageContext.request.contextPath}';
-                }else{
-                    alert('엥?');
-                }
-            })
-            
-        }
+        
+        document.querySelector('.dropdown').addEventListener('click', e => { //addEventListener()의 매개변수: type, func 
+                
+            //1. 이벤트가 발생한 target이 a태그가 아니라면 이벤트 강제 종료!
+            if(!e.target.matches('a#logout')) return;
+
+            console.log('로그아웃a태그에만 이벤트 발생!');
+
+            let f = document.createElement('form');
+
+            f.setAttribute('method', 'post');
+            f.setAttribute('action', '${pageContext.request.contextPath}/user/logout');
+            document.body.appendChild(f);
+            f.submit();
+                
+
+        }); 
+
     </script>

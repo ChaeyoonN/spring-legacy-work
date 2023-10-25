@@ -7,16 +7,25 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-//@RestController 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+//@Controller
+@RestController 
 @RequestMapping("rest")
+@Slf4j
+@RequiredArgsConstructor
 public class RestControllerTest {
+	
+	private final WeatherService service;
 	
 	@GetMapping("/view")
 	public String viewPage() {
@@ -76,4 +85,21 @@ public class RestControllerTest {
 		return subject;
 	}
 	
+	@GetMapping("/api-view")
+	public ModelAndView apiViewPage() {
+		
+		return new ModelAndView("test/api-test");
+	}
+	
+	@GetMapping("/api-req/{area1}/{area2}")
+	public void apiRequest(@PathVariable String area1, @PathVariable String area2) {
+		log.info("/api-req: GET, area1: {}, area2: {}", area1, area2);
+		
+		service.getShortTermForcecast(area1, area2);
+		
+	}
+	
 }
+
+
+

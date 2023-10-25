@@ -23,7 +23,7 @@
 	
 	<hr>
 	
-	<form action="${pageContext.request.contextPath}/fileupload/upload_ok3" method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/fileupload/upload_ok3" method="post">
 		파일 선택: <input type="file" name="file"> <br>
 		파일 선택: <input type="file" name="file"> <br>
 		파일 선택: <input type="file" name="file"> <br>

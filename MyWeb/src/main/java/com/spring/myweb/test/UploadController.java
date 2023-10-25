@@ -54,7 +54,7 @@ public class UploadController {
 						);//확장자
 		System.out.println("확장자명: "+fileExtension);
 		
-		//DB에는 파일 경로를 저장한다고 가정하고, 실제 파일은 서버 컨퓨터의 로컬 경로에 저장하는 방식.
+		//DB에는 파일 경로를 저장한다고 가정하고, 실제 파일은 서버 컴퓨터의 로컬 경로에 저장하는 방식.
 		String uploadFolder = "C:/test/upload";
 		
 		File f = new File(uploadFolder);
@@ -67,7 +67,7 @@ public class UploadController {
 		
 		try {
 			//매개값으로 받은 첨부파일을 지정한 로컬 경로에 보내는 메서드.
-			file.transferTo(saveFile);
+			file.transferTo(saveFile); // 이 메서드로 인해 파일 생성됌!
 			
 		}catch (Exception e) {
 			e.printStackTrace();
