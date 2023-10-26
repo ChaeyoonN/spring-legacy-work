@@ -16,7 +16,17 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+/*
+	SELECT * FROM 
+    (
+    SELECT * FROM test_location
+    ORDER BY ABS(latitude - 37.5621181) + ABS(longitude - 126.9428028) 
+    )
+	WHERE ROWNUM = 1;
 
+	--가장 차이가 적은 순으로 조회하는 원리
+
+*/
 @Service
 @Slf4j
 @RequiredArgsConstructor
